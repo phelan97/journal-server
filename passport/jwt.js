@@ -13,7 +13,7 @@ const jwtStrategy = new JwtStrategy(options, (payload, done) => {
   console.log('JWT payload: ', payload.user);
   User.findById(payload.user._id)
     .then((user) => done(null, user));
-  // FIXME: why is this not working?
+  // FIXME: HELP!! Why is this not working?
   //done(null, payload.user);
 });
 

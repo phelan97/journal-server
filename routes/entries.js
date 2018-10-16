@@ -1,11 +1,13 @@
 
 const express = require('express');
+const passport = require('passport');
+const mongoose = require('mongoose');
+
 const User = require('../models/user');
 const Entry = require('../models/entry');
+const {validateIds, requireFields} = require('../utils/server-validation');
 
 const router = express.Router();
-
-const passport = require('passport');
 
 router.use('/', passport.authenticate('jwt', { session: false, failWithError: true }));
 
@@ -21,10 +23,9 @@ router.get('/', (req, res, next) => {
 
 
   // TODO: add filtering
-  const {userId} = req.user;
+  const {id: userId} = req.user;
 
-  // FIXME: _id
-  return Entry.find({_id: userId}).limit(20)
+  return Entry.find({id: userId}).limit(20)
     .then(results => {
       return res.json(results);
     })
@@ -32,16 +33,37 @@ router.get('/', (req, res, next) => {
 
 });
 
-router.get('/:id', (req, res, next) => {
+router.get('/:id', validateIds, (req, res, next) => {
+  const {id} = req.params;
+  const {id: userId} = req.user;
 
+  return Entry.findOne({_id: id, userId})
+    .then(result => {
+      if(!result) {
+        const err = new Error('Could not find an entry with the given id');
+        err.status = 404;
+        return next(err);
+      }
+      return res.json(result);
+    })
+    .catch(err => next(err));
 });
 
 router.post('/', (req, res, next) => {
-
+  const {content} = req.body;
+  const {id: userId} = req.user;
+  const newEntry = {
+    content,
+    userId
+  };
+  Entry.create(newEntry)
+    .then(data => {
+      res.location(`${req.originalUrl}/${data.id}`).status(201).json(data);
+    }).catch(err => next(err));
 });
 
 router.delete('/', (req, res, next) => {
-
+  const {id: userId} = req.user;
 });
 
 module.exports = router;
