@@ -2,9 +2,17 @@
 const express = require('express');
 const cors = require('cors');
 const morgan = require('morgan');
+const passport = require('passport');
 
 const entryRouter = require('./routes/entries');
+const authRouter = require('./routes/auth');
+const userRouter = require('./routes/users');
+
+
+const {dbConnect} = require('./db-mongoose');
 const {PORT, CLIENT_ORIGIN} = require('./config');
+const localStrategy = require('./passport/local');
+const jwtStrategy = require('./passport/jwt');
 
 const app = express();
 
@@ -18,12 +26,32 @@ app.use(cors({
   origin: CLIENT_ORIGIN
 }));
 
-// TODO: auth
+passport.use(localStrategy);
+passport.use(jwtStrategy);
+
+app.use('/api/register', userRouter);
+app.use('/api/login', authRouter);
 
 // TODO: routes here
 app.use('/api/entries', entryRouter);
 
-// TODO: 404 and error handling
+
+// ERROR HANDLING
+app.use((req, res, next) => {
+  const err = new Error('Not Found');
+  err.status = 404;
+  next(err);
+});
+
+app.use((err, req, res, next) => {
+  if (err.status) {
+    const errBody = Object.assign({}, err, { message: err.message });
+    res.status(err.status).json(errBody);
+  } else {
+    console.error(err);
+    res.status(500).json({ message: 'Internal Server Error' });
+  }
+});
 
 function runServer(port = PORT) {
   const server = app
@@ -37,6 +65,6 @@ function runServer(port = PORT) {
 }
 
 if (require.main === module) {
-  // FIXME: dbConnect();
+  dbConnect();
   runServer();
 }
