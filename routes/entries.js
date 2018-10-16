@@ -64,6 +64,19 @@ router.post('/', requireFields(['content']), (req, res, next) => {
     }).catch(err => next(err));
 });
 
+router.put('/:id', requireFields(['content']), validateIds, (req, res, next) => {
+  const {content} = req.body;
+  const {id: userId} = req.user;
+  const updatedObj = {
+    content
+  };
+  Entry.findOneAndUpdate({_id: req.params.id, userId}, updatedObj, {new: true})
+    .then(updatedEntry => {
+      return res.json(updatedEntry);
+    })
+    .catch(err => next(err));
+});
+
 router.delete('/:id', validateIds, (req, res, next) => {
   const {id: userId} = req.user;
   Entry.findOneAndRemove({_id: req.params.id, userId})
