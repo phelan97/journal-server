@@ -18,6 +18,10 @@ userSchema.statics.hashPassword = function (password) {
   return bcrypt.hash(password, 10);
 };
 
+userSchema.virtual('id').get(function() {
+  return this._id;
+});
+
 userSchema.set('toObject', {
   virtuals: true,
   versionKey: false,
@@ -25,6 +29,8 @@ userSchema.set('toObject', {
     delete result._id;
     delete result.__v;
     delete result.password;
+    console.log('TRANSFORM RESULT ', result);
+    return result;
   }
 });
 

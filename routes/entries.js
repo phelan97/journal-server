@@ -23,7 +23,8 @@ router.get('/', (req, res, next) => {
   // TODO: add filtering
   const {userId} = req.user;
 
-  return Entry.find({userId}).limit(20)
+  // FIXME: _id
+  return Entry.find({_id: userId}).limit(20)
     .then(results => {
       return res.json(results);
     })

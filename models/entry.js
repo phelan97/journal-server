@@ -8,6 +8,10 @@ const entrySchema = new mongoose.Schema({
   userId: {type: Schema.Types.ObjectId, ref: 'User'}
 });
 
+entrySchema.virtual('id').get(function() {
+  return this._id;
+});
+
 entrySchema.set('toObject', {
   virtuals: true,
   versionKey: false,
