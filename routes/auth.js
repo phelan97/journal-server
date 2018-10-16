@@ -7,6 +7,7 @@ const options = {session: false, failWithError: true};
 const localAuth = passport.authenticate('local', options);
 const jwt = require('jsonwebtoken');
 const {JWT_SECRET, JWT_EXPIRY} = require('../config');
+const {requireFields} = require('../utils/server-validation');
 
 function createAuthToken (user) {
   return jwt.sign({ user }, JWT_SECRET, {
@@ -16,7 +17,7 @@ function createAuthToken (user) {
 }
 
 // login
-router.post('/', localAuth, function(req, res) {
+router.post('/', requireFields(['email', 'password']), localAuth, function(req, res) {
   const authToken = createAuthToken(req.user);
   console.log('routes/auth.js req.user', req.user);
   return res.json({authToken});

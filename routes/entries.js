@@ -25,7 +25,7 @@ router.get('/', (req, res, next) => {
   // TODO: add filtering
   const {id: userId} = req.user;
 
-  return Entry.find({id: userId}).limit(20)
+  return Entry.find({userId}).limit(20)
     .then(results => {
       return res.json(results);
     })
@@ -49,7 +49,7 @@ router.get('/:id', validateIds, (req, res, next) => {
     .catch(err => next(err));
 });
 
-router.post('/', (req, res, next) => {
+router.post('/', requireFields(['content']), (req, res, next) => {
   const {content} = req.body;
   const {id: userId} = req.user;
   const newEntry = {
