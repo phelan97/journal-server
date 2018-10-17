@@ -16,8 +16,7 @@ function createAuthToken (user) {
   });
 }
 
-// login
-router.post('/', requireFields(['email', 'password']), localAuth, function(req, res) {
+router.post('/login', requireFields(['email', 'password']), localAuth, function(req, res) {
   const authToken = createAuthToken(req.user);
   console.log('routes/auth.js req.user', req.user);
   return res.json({authToken});

@@ -30,7 +30,7 @@ passport.use(localStrategy);
 passport.use(jwtStrategy);
 
 app.use('/api/register', userRouter);
-app.use('/api/login', authRouter);
+app.use('/api/auth', authRouter);
 
 // TODO: routes here
 app.use('/api/entries', entryRouter);
