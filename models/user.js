@@ -29,7 +29,6 @@ userSchema.set('toObject', {
     delete result._id;
     delete result.__v;
     delete result.password;
-    // FIXME: double check: does this ever get logged?
     console.log('TRANSFORM RESULT ', result);
     return result;
   }

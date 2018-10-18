@@ -10,7 +10,9 @@ const {JWT_SECRET, JWT_EXPIRY} = require('../config');
 const {requireFields} = require('../utils/server-validation');
 
 function createAuthToken (user) {
-  return jwt.sign({ user }, JWT_SECRET, {
+  // email: user.email, id: user.id
+  console.log('USER:', user);
+  return jwt.sign({user}, JWT_SECRET, {
     subject: user.email,
     expiresIn: JWT_EXPIRY
   });

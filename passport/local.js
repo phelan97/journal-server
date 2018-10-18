@@ -26,7 +26,7 @@ const localStrategy = new LocalStrategy({usernameField: "email"}, (email, passwo
         });
       }
       console.log('local.js USER', user);
-      return done(null, user);
+      return done(null, user.toObject());
     })
     .catch(err => {
       if (err.reason === 'LoginError') {

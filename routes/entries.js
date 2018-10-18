@@ -28,7 +28,7 @@ router.get('/', (req, res, next) => {
   // FIXME: don't hardcode the limit
   return Entry.find({userId}).limit(1000)
     .then(results => {
-      return res.json(results);
+      return res.json(results.map(result => result.toObject()));
     })
     .catch(err => next(err));
 
@@ -60,7 +60,7 @@ router.post('/', requireFields(['content']), (req, res, next) => {
   Entry.create(newEntry)
     .then(data => {
       // FIXME: RETURNS THE WRONG DATA (before serialize/toObject, including the user's password)
-      res.location(`${req.originalUrl}/${data.id}`).status(201).json(data);
+      res.location(`${req.originalUrl}/${data.id}`).status(201).json(data.toObject());
     }).catch(err => next(err));
 });
 
