@@ -65,6 +65,7 @@ router.put('/:id', requireFields(['content']), validateIds, (req, res, next) => 
   const updatedObj = {
     content
   };
+  
   Entry.findOneAndUpdate({_id: req.params.id, userId}, updatedObj, {new: true})
     .then(updatedEntry => {
       return res.json(updatedEntry);

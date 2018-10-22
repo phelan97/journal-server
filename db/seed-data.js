@@ -2,7 +2,7 @@ const users = [
   {
     _id: "000000000000000000000001",
     email: "foobar",
-    password: "$2a$10$Pyh/48hu9P3zjbO/ouOJfOnoo2CSFD7Rwpm.CQMXoUXofpGYm4NQ2"
+    password: "$2a$10$nfMRvKELfUquWRIClQWaVuLN7eVbWK0UbMfgdVLoopO0ijb0maCXq"
   }
 ];
 
@@ -36,7 +36,23 @@ const entries = [
     _id: "222222222222222222222225",
     userId: "000000000000000000000001",
     
-    content: 'These posts should be filled with the dummy user data',
+    content: 'These posts are automatically generated',
+    date: (new Date(2018, 9, 1)).getTime()
+  },
+
+  {
+    _id: "222222222222222222222227",
+    userId: "000000000000000000000001",
+    
+    content: 'Some have normal text content so that different entries are searchable',
+    date: (new Date(2018, 9, 1)).getTime()
+  },
+
+  {
+    _id: "222222222222222222222229",
+    userId: "000000000000000000000001",
+    
+    content: 'Ut tation mentitum mei, at oratio delenit sit, semper eruditi sadipscing ut eam. Quo te iuvaret consulatu, duis debet legendos ne usu. Ad ius saperet pertinax voluptatum. Ut eum inermis cotidieque, an vel tempor scripta. Quo graeci invenire indoctum in, ne sit ipsum aperiri scaevola, errem vocent contentiones sed ne.',
     date: (new Date(2018, 9, 1)).getTime()
   }
 ];
