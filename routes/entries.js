@@ -21,7 +21,7 @@ router.get('/', (req, res, next) => {
   }
 
   // FIXME: don't hardcode the limit
-  return Entry.find(dbFilter).limit(1000)
+  return Entry.find(dbFilter).sort({date: -1}).limit(1000)
     .then(results => {
       return res.json(results.map(result => result.toObject()));
     })
