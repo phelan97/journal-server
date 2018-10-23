@@ -68,3 +68,5 @@ if (require.main === module) {
   dbConnect();
   runServer();
 }
+
+module.exports = app;
