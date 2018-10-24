@@ -7,7 +7,9 @@ const Schema = mongoose.Schema;
 // TODO: track name, other info
 const userSchema = new Schema({
   email: {type: String, required: true, unique: true},
-  password: {type: String, required: true}
+  password: {type: String, required: true},
+  firstName: {type: String, required: true},
+  lastName: {type: String, required: true}
 });
 
 userSchema.methods.validatePassword = function (password) {
@@ -20,6 +22,10 @@ userSchema.statics.hashPassword = function (password) {
 
 userSchema.virtual('id').get(function() {
   return this._id;
+});
+
+userSchema.virtual('fullName').get(function () {
+  return this.firstName + " " + this.lastName;
 });
 
 userSchema.set('toObject', {

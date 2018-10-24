@@ -2,7 +2,9 @@ const users = [
   {
     _id: "000000000000000000000001",
     email: "foobar",
-    password: "$2a$10$nfMRvKELfUquWRIClQWaVuLN7eVbWK0UbMfgdVLoopO0ijb0maCXq"
+    password: "$2a$10$nfMRvKELfUquWRIClQWaVuLN7eVbWK0UbMfgdVLoopO0ijb0maCXq",
+    firstName: 'Foo',
+    lastName: 'Bar'
   }
 ];
 
