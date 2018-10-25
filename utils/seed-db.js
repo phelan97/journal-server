@@ -1,6 +1,6 @@
 
 const {dbConnect, dbDisconnect, dbGet} = require('../db-mongoose');
-const {users, entries} = require('../db/seed-data');
+const {users, entries} = require('../data/seed-data');
 const User = require('../models/user');
 const Entry = require('../models/entry');
 
