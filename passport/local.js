@@ -25,7 +25,6 @@ const localStrategy = new LocalStrategy({usernameField: "email"}, (email, passwo
           location: 'password'
         });
       }
-      console.log('local.js USER', user);
       return done(null, user.toObject());
     })
     .catch(err => {

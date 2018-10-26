@@ -21,4 +21,13 @@ entrySchema.set('toObject', {
   }
 });
 
+entrySchema.set('toJSON', {
+  virtuals: true,
+  versionKey: false,
+  transform: (doc, result) => {
+    delete result._id;
+    delete result.__v;
+  }
+});
+
 module.exports = mongoose.model('Entry', entrySchema);

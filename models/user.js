@@ -35,7 +35,18 @@ userSchema.set('toObject', {
     delete result._id;
     delete result.__v;
     delete result.password;
-    console.log('TRANSFORM RESULT ', result);
+    return result;
+  }
+});
+
+// TODO: better
+userSchema.set('toJSON', {
+  virtuals: true,
+  versionKey: false,
+  transform: (doc, result) => {
+    delete result._id;
+    delete result.__v;
+    delete result.password;
     return result;
   }
 });

@@ -10,10 +10,9 @@ const options = {
 };
 
 const jwtStrategy = new JwtStrategy(options, (payload, done) => {
-  console.log('JWT payload: ', payload.user);
+    // FIXME:
   // User.findById(payload.user._id)
   //   .then((user) => done(null, user));
-  // FIXME: HELP!! Why is this not working?
   done(null, payload.user);
 });
 

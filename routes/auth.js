@@ -10,8 +10,6 @@ const {JWT_SECRET, JWT_EXPIRY} = require('../config');
 const {requireFields} = require('../utils/server-validation');
 
 function createAuthToken (user) {
-  // email: user.email, id: user.id
-  console.log('USER:', user);
   return jwt.sign({user}, JWT_SECRET, {
     subject: user.email,
     expiresIn: JWT_EXPIRY
@@ -20,7 +18,6 @@ function createAuthToken (user) {
 
 router.post('/login', requireFields(['email', 'password']), localAuth, function(req, res) {
   const authToken = createAuthToken(req.user);
-  console.log('routes/auth.js req.user', req.user);
   return res.json({authToken});
 });
 
